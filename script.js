@@ -220,20 +220,20 @@ document.addEventListener("DOMContentLoaded", () => {
     yearInput.value = data.year;
     isCompleteInput.checked = data.isComplete;
     submitBtn.innerText = "Simpan Perubahan";
-    formBook.removeEventListener("submit", () => {
-      console.log("OK");
-      // editData(
-      //   data.id,
-      //   titleInput.value,
-      //   authorInput.value,
-      //   yearInput.value,
-      //   isCompleteInput.checked
-      // );
-      // document.dispatchEvent(new Event(RENDER_EVENT));
-      // titleInput.value = "";
-      // authorInput.value = "";
-      // yearInput.value = "";
-      // isCompleteInput.checked = false;
+    formBook.removeEventListener("submit");
+    formBook.addEventListener("submit", () => {
+      editData(
+        data.id,
+        titleInput.value,
+        authorInput.value,
+        yearInput.value,
+        isCompleteInput.checked
+      );
+      document.dispatchEvent(new Event(RENDER_EVENT));
+      titleInput.value = "";
+      authorInput.value = "";
+      yearInput.value = "";
+      isCompleteInput.checked = false;
     });
   };
 
