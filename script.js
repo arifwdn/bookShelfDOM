@@ -40,15 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnIsComplete.addEventListener("click", () => isCompleteBook(book.id));
     btnDelete.addEventListener("click", () => deleteBook(book.id));
 
-    const editButton = document.createElement("button");
-    editButton.classList.add("green");
-    const svgEdit = document.createElement("img");
-    svgEdit.setAttribute("width", "16px");
-    svgEdit.setAttribute("src", "assets/edit.svg");
-    editButton.addEventListener("click", () => editForm(book.id));
-    editButton.append(svgEdit);
-
-    action.append(btnIsComplete, btnDelete, editButton);
+    action.append(btnIsComplete, btnDelete);
 
     article.append(title, author, year, action);
 
@@ -145,19 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.dispatchEvent(new Event(RENDER_EVENT));
   };
 
-  const editData = (id, title, author, year, isComplete) => {
-    loadDataStorage();
-    for (book of books) {
-      if (book.id === id) {
-        book.title = title;
-        book.author = author;
-        book.year = year;
-        book.isComplete = isComplete;
-      }
-    }
-    saveDataToStorage();
-  };
-
   // Generate Data
   const generateID = () => {
     return +new Date();
@@ -202,40 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
     yearInput.value = "";
     isCompleteInput.checked = false;
   });
-
-  const editForm = (bookId) => {
-    let data = {};
-    for (book of books) {
-      if (book.id === bookId) {
-        data = book;
-        break;
-      }
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    titleInput.value = data.title;
-    authorInput.value = data.author;
-    yearInput.value = data.year;
-    isCompleteInput.checked = data.isComplete;
-    submitBtn.innerText = "Simpan Perubahan";
-    formBook.removeEventListener("submit");
-    formBook.addEventListener("submit", () => {
-      editData(
-        data.id,
-        titleInput.value,
-        authorInput.value,
-        yearInput.value,
-        isCompleteInput.checked
-      );
-      document.dispatchEvent(new Event(RENDER_EVENT));
-      titleInput.value = "";
-      authorInput.value = "";
-      yearInput.value = "";
-      isCompleteInput.checked = false;
-    });
-  };
 
   // Search Event
   const searchForm = document.getElementById("searchBook");
