@@ -166,14 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
   formBook.addEventListener("submit", (e) => {
     e.preventDefault();
     const id = generateID();
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const year = parseInt(yearInput.value);
+    const isComplete = isCompleteInput.checked;
 
-    const data = generateBooksObj(
-      id,
-      titleInput.value,
-      authorInput.value,
-      yearInput.value,
-      isCompleteInput.checked
-    );
+    const data = generateBooksObj(id, title, author, year, isComplete);
     addData(data);
     document.dispatchEvent(new Event(RENDER_EVENT));
     titleInput.value = "";
